@@ -48,7 +48,7 @@ const offlinePost = async (url, data, recordType, batchId) => {
 };
 
 const API = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_API_URL || '/api',
 });
 
 // Add JWT auth token to all requests
