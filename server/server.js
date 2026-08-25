@@ -21,17 +21,17 @@ app.use(helmet({
   crossOriginEmbedderPolicy: false // Allow assets from same origin
 }));
 
-// CORS — only allow configured frontend origins
+// CORS — allow configured frontend origins + all Vercel deployment previews
 const allowedOrigins = process.env.FRONTEND_URL
-  ? [process.env.FRONTEND_URL]
+  ? process.env.FRONTEND_URL.split(',').map(o => o.trim())
   : ['http://localhost:5173', 'http://localhost:3000'];
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin, or if origin matches allowedOrigins, or any localhost in dev
     if (
-      !origin || 
-      allowedOrigins.includes(origin) || 
+      !origin ||
+      allowedOrigins.includes(origin) ||
+      /^https:\/\/mchicks.*\.vercel\.app$/.test(origin) ||
       (process.env.NODE_ENV !== 'production' && origin.startsWith('http://localhost:'))
     ) {
       callback(null, true);
