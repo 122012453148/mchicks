@@ -1,6 +1,9 @@
 import { getSyncQueue, updateSyncRecord, removeSyncRecord } from './db';
 import * as apiService from '../services/api';
 
+// Re-export getSyncQueue so it can be imported from syncManager directly
+export { getSyncQueue };
+
 export const syncAllPendingRecords = async () => {
   const queue = await getSyncQueue();
   const pendingRecords = queue.filter(r => r.syncStatus === 'pending' || r.syncStatus === 'failed');
