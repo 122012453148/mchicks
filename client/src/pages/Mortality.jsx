@@ -41,7 +41,8 @@ export default function Mortality() {
       setReason('');
       setRemarks('');
     } catch (err) {
-      setError(err.response?.data?.error || 'Failed to log mortality.');
+      const rawError = err.response?.data?.error;
+      setError(typeof rawError === 'string' ? rawError : (rawError?.message || 'Failed to log mortality.'));
     }
   };
 

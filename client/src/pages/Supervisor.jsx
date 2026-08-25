@@ -71,7 +71,8 @@ export default function Supervisor() {
       setObs('');
       setRemarks('');
     } catch (err) {
-      setError(err.response?.data?.error || 'Failed to submit supervisor visit.');
+      const rawError = err.response?.data?.error;
+      setError(typeof rawError === 'string' ? rawError : (rawError?.message || 'Failed to submit supervisor visit.'));
     }
   };
 

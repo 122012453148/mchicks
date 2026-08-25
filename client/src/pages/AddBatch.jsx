@@ -63,7 +63,8 @@ export default function AddBatch() {
         navigate('/dashboard');
       }, 1500);
     } catch (err) {
-      const errMsg = err.response?.data?.error || '';
+      const rawError = err.response?.data?.error;
+      const errMsg = typeof rawError === 'string' ? rawError : (rawError?.message || '');
       if (errMsg.includes('duplicate key') || errMsg.includes('E11000')) {
         setError(`Batch ID "${formData.batchId}" already exists. Please use a different Batch ID (e.g., BATCH-002).`);
       } else {

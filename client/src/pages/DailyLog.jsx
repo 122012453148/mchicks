@@ -84,7 +84,8 @@ export default function DailyLog() {
         navigate('/dashboard');
       }, 1000);
     } catch (err) {
-      setError(err.response?.data?.error || 'Failed to save log.');
+      const rawError = err.response?.data?.error;
+      setError(typeof rawError === 'string' ? rawError : (rawError?.message || 'Failed to save log.'));
     }
   };
 

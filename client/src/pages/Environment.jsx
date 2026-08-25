@@ -38,7 +38,8 @@ export default function Environment() {
       setShedHumid('');
       setRemarks('');
     } catch (err) {
-      setError(err.response?.data?.error || 'Failed to record environment log.');
+      const rawError = err.response?.data?.error;
+      setError(typeof rawError === 'string' ? rawError : (rawError?.message || 'Failed to record environment log.'));
     }
   };
 

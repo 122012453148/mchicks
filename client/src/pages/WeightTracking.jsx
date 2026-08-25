@@ -91,7 +91,8 @@ export default function WeightTracking() {
       setIndividualList(['']);
       setRemarks('');
     } catch (err) {
-      setError(err.response?.data?.error || 'Failed to record weight.');
+      const rawError = err.response?.data?.error;
+      setError(typeof rawError === 'string' ? rawError : (rawError?.message || 'Failed to record weight.'));
     }
   };
 

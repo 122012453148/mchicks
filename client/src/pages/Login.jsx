@@ -34,7 +34,8 @@ export default function Login() {
       localStorage.setItem('mchicks_user', data.username);
       navigate('/dashboard');
     } catch (err) {
-      const msg = err.response?.data?.error || 'Invalid username or password.';
+      const rawError = err.response?.data?.error;
+      const msg = typeof rawError === 'string' ? rawError : (rawError?.message || 'Invalid username or password.');
       setError(msg);
     } finally {
       setLoading(false);
